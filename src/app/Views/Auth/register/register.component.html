@@ -1,0 +1,52 @@
+<app-loader-type-one *ngIf="submitting" />
+<section class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h2 class="text-2xl font-bold mb-4">Registro</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-bold mb-2">Nombre:</label>
+                <input formControlName="name" placeholder="your name" type="text" id="name" name="name" required class="w-full border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500">
+              <div class="alert"
+                   *ngIf="registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)">
+                <div
+                  *ngIf="registerForm.controls['name'].errors?.['required']">El email es requerido.
+                </div>
+                <div
+                  *ngIf="registerForm.controls['name'].errors?.['minlength']">El nombre debe tener al menos 3 caracteres.
+              </div>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-bold mb-2">Correo electrónico:</label>
+                <input formControlName="email" placeholder="example@example.com" type="email" id="email" name="email" class="w-full border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500">
+              <div class="alert"
+                   *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+                <div
+                  *ngIf="registerForm.controls['email'].errors?.['required']">El email es requerido.
+                </div>
+                <div
+                  *ngIf="registerForm.controls['email'].errors?.['email']">
+                  Formato de email incorrecto.
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 font-bold mb-2">Contraseña:</label>
+                <input formControlName="password" placeholder="*********" type="password" id="password" name="password" required class="w-full border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500">
+              <div class="alert"
+                   *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
+                <div
+                  *ngIf="registerForm.controls['password'].errors?.['required']">La contraseña es requerida.
+                </div>
+                <div
+                  *ngIf="registerForm.controls['password'].errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="flex gap-2">
+                <button [disabled]="!registerForm.valid || submitting" type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Registrarse</button>
+                <a [routerLink]="['/']"  class="cursor-pointer text-blue-500 hover:underline">ya tienes cuenta?</a>
+            </div>
+        </form>
+    </div>
+</section>

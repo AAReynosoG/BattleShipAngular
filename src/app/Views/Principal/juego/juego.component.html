@@ -1,0 +1,17 @@
+<main class="h-full w-full flex justify-center items-center" style="height: 100vh;">    
+    <div class="tableros grid grid-rows-2  gap-2" style="width: 50%; height: 100vh;">
+        <div class="tablero-rival">
+            <app-tablero-rival (medirDisparo)="checkBoats($event)" [tablero_rival]="tablero_rival"/>
+        </div>
+        <div class="tablero-principal">
+            <app-tablero (recibirTablero)="mostrarTablero($event)" [tablero]="tablero"/>
+        </div>
+    </div>
+    <div class="modal-buttons">
+        <div class="btn-contain">
+          <button (click)="leaveConfirm()"  type="button">
+            <span>Abandornar partida</span>
+          </button>
+        </div>
+    </div>
+</main>

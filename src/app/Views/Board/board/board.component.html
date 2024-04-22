@@ -1,0 +1,31 @@
+<!-- Para la matriz 'enemyBoard' -->
+<app-loader-type-one *ngIf="shooting" text="Ajustando cañon..."/>
+<div class="flex flex-col items-center my-8">
+  <h3 class="text-2xl font-bold mb-4">Tablero Rival</h3>
+  <table class="table-fixed border-collapse">
+    <tr *ngFor="let row of enemyBoard; let i = index">
+      <td *ngFor="let cell of row; let j = index" class="p-0">
+        <button [disabled]="playerTurn != this.authService.getUserId() || gameFinished" [ngClass]="{'bg-blue-500': cell == 'w', 'bg-green-500': cell == 's', 'bg-red-400': cell == 'h', 'bg-gray-500': cell == 'm'}" class="w-full h-full hover:bg-blue-700 text-white font-bold py-2 px-4 border border-gray-300 rounded" (click)="attackEnemy(i, j)">{{cell}}</button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Para la matriz 'board' -->
+<div class="flex flex-col items-center my-8">
+  <h3 class="text-2xl font-bold mb-4">{{ playerTurn != authService.getUserId() ? 'Turno del rival' : 'Tu turno' }}</h3>
+  <h3 class="text-xl mb-2">Mi Tablero</h3>
+  <h3 class="text-lg mb-4">Mis Barquitos: {{boats}}</h3>
+  <table class="table-fixed border-collapse">
+    <tr *ngFor="let row of board; let i = index">
+      <td *ngFor="let cell of row; let j = index" class="p-0">
+        <button [disabled]="true" [ngClass]="{'bg-blue-500': cell == 'w', 'bg-green-500': cell == 's', 'bg-red-400': cell == 'h', 'bg-gray-500': cell == 'm'}" class="w-full h-full text-white font-bold py-2 px-4 border border-gray-300 rounded">{{cell}}</button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Boton para abandonar la partida -->
+<div class="flex justify-center my-8">
+  <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-gray-300 rounded" (click)="abortGame()">Abandonar Partida</button>
+</div>

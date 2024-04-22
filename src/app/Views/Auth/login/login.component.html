@@ -1,0 +1,49 @@
+<app-code *ngIf="verifyCodeView" [email]="email" [password]="password"/>
+<app-loader-type-one *ngIf="submitting" />
+<article class="bg-gray-100 flex items-center justify-center h-screen" *ngIf="!verifyCodeView">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h2 class="text-2xl font-bold mb-4">Iniciar sesión</h2>
+        <form  method="post" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-bold mb-2">Correo electrónico:</label>
+                <input
+                    type="email"
+                    id="email" name="email"
+                    formControlName="email"
+                    placeholder="example@example.com"
+                    class="w-full border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500">
+
+              <div class="alert"
+                   *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+                <div
+                  *ngIf="loginForm.controls['email'].errors?.['required']">El email es requerido.
+                </div>
+                <div
+                  *ngIf="loginForm.controls['email'].errors?.['email']">
+                  Formato de email incorrecto.
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 font-bold mb-2">Contraseña:</label>
+                <input
+                    placeholder="*********"
+                    type="password"
+                    id="password"
+                    name="password"
+                    formControlName="password"
+                    class="w-full border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500">
+              <div class="alert"
+                   *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                <div
+                  *ngIf="loginForm.controls['password'].errors?.['required']">La contraseña es requerida.
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between">
+                <button [disabled]="!loginForm.valid || submitting" type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Iniciar sesión</button>
+                <a [routerLink]="['/register']" class="cursor-pointer text-blue-500 hover:underline">No tienes cuenta?</a>
+            </div>
+        </form>
+    </div>
+</article>

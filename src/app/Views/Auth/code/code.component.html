@@ -1,0 +1,20 @@
+<app-loader-type-one *ngIf="submitting" />
+<main class="h-full w-full flex justify-center items-center bg-gray-100" style="height: 100vh;">
+  <div class="flex justify-center items-center flex-col gap-2 bg-white p-6 rounded shadow-lg">
+    <h1 class="text-2xl font-bold mb-4">Ingresa el codigo</h1>
+    <form [formGroup]="codeForm" (ngSubmit)="verifyCode()" class="flex justify-center items-center flex-col gap-2">
+      <input formControlName="code" type="text" placeholder="Codigo" class="input border p-2 rounded">
+      <div class="alert text-red-600 mt-2"
+           *ngIf="codeForm.controls['code'].invalid && (codeForm.controls['code'].dirty || codeForm.controls['code'].touched)">
+        <div *ngIf="codeForm.controls['code'].errors?.['required']">El codigo es requerido.</div>
+        <div *ngIf="codeForm.controls['code'].errors?.['minlength']">El codigo debe tener al menos 6 caracteres.</div>
+        <div *ngIf="codeForm.controls['code'].errors?.['maxlength']">El codigo debe tener como maximo 6 caracteres.</div>
+      </div>
+      <div class="btn-contain mt-4">
+        <button type="submit" [disabled]="!codeForm.valid || submitting" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50">
+          <span>Enviar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</main>

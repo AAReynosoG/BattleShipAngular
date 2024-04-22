@@ -1,0 +1,30 @@
+<app-alert *ngIf="alert" [message]="message"/>
+<section class="h-full bg-gray-700" style="width: 100%">
+    <div class="cont h-full w-full">
+        <div class="text-white">Tablero rival</div>
+        <div class="header grid text-white">
+            <div *ngFor="let columna of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]">{{ columna }}</div>
+        </div>
+        <div class="aside text-white">
+            <div>a</div>
+            <div>b</div>
+            <div>c</div>
+            <div>d</div>
+            <div>e</div>
+            <div>f</div>
+            <div>g</div>
+            <div>h</div>
+        </div>
+        <div class="contenido grid grid-rows-8" [ngClass]="disableTablero ? 'disabled' : ''">
+            <div *ngFor="let fila of tablero_rival; let i = index" class="fila"> 
+                <div *ngFor="let columna of fila; let j = index" class="columna">
+                    <div class="cont-casilla" 
+                        (click)="casilla_selected(i, j)"
+                        [ngClass]="{'has_boat': columna === 1, 'select': columna === 2, 'bg-gray-600': (i + j) % 2 === 0, 'bg-gray-500': (i + j) % 2 !== 0}">
+                        {{ columna == 0 ? '' : '' }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
