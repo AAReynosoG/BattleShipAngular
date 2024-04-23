@@ -15,21 +15,34 @@
     width: 60px;
     height: 60px;
     font-size: 0;
+    background-color: #2ba3d0;
     padding: 0;
-    margin: 0;
+    border: none;
+    margin: 4px;
 }
 
-.water{
-    background-color: #00f;
-}
+
+
 
 .hited{
-    background-image: url('../../../resources/images/destroy.png');
+    background-image: url('../../../resources/images/barcoDestruido.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
 .missed{
     background-image: url('../../../resources/images/crater.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+#button:hover{
+    background-image: url('../../../resources/images/objetivo.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+
+section{
+     background-image: url('../../../resources/images/background.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
