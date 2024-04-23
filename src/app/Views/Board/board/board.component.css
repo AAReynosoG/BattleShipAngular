@@ -2,3 +2,34 @@
 .cell-s { background: url('../../.././resources/images/barcos/4.png'); }
 .cell-h { background: url('../../.././resources/images/destroy.png'); }
 .cell-m { background: url('../../.././resources/images/crater.png'); }
+
+
+.ship{
+    background-image: url('../../../resources/images/barcos/6.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.tablero button{
+    width: 60px;
+    height: 60px;
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.water{
+    background-color: #00f;
+}
+
+.hited{
+    background-image: url('../../../resources/images/destroy.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.missed{
+    background-image: url('../../../resources/images/crater.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
