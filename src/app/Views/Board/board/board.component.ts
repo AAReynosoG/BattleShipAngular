@@ -39,7 +39,7 @@ export class BoardComponent {
   gameId = localStorage.getItem('gameId');
   myId = this.authService.getUserId();
   enemyId = this.defineEnemyId();
-  boats = 5;
+  boats = 15;
 
 
 
@@ -51,17 +51,19 @@ export class BoardComponent {
         if(data.data[2] == this.authService.getUserId()){
           if(this.board[data.data[1][0]][data.data[1][1]] == 's'){
             this.playerTurn = data.data[3]
+            //this.playerTurn = data.data[2] //En caso de que el profe quiera que el turno se pase al sig jugador aun así acertaces el tiro
             this.board[data.data[1][0]][data.data[1][1]] = 'h';
+            this.toastr.warning('Ouch! Te han dado!', 'Ataque enemigo')
             this.boats--;
             this.echoService.attackSuccessEndpoint(true, data.data[3], data.data[1], data.data[3]).subscribe(data => {
             });
             if(this.boats == 0) {
+              this.gameFinished = true;
               this.echoService.endGameEndpoint(this.gameId, this.authService.getUserId()).subscribe(data => {});
               this.toastr.show('Perdiste :(', 'Fin del juego');
-              this.gameFinished = true;
               setTimeout(() => {
                 window.location.reload();
-              }, 3000)
+              }, 2000)
             }
           } else {
             this.board[data.data[1][0]][data.data[1][1]] = 'm';
@@ -73,11 +75,16 @@ export class BoardComponent {
       })
 
       this.echoService.attackSuccessEvent((data) => {
+        console.log(data);
+        console.log(data.data);
+        console.log(this.authService.getUserId());
+        console.log(this.enemyId);
         if(data.data[3] == this.authService.getUserId() && data.data[0] == true){
           this.enemyBoard[data.data[2][0]][data.data[2][1]] = 'h';
           this.playerTurn = data.data[3];
+          //this.playerTurn = this.enemyId //En caso de que el profe quiera que el turno se pase al sig jugador aun así acertaces el tiro
           this.shooting = false;
-          this.toastr.success('Le diste!', 'Success Attack');
+          this.toastr.info('Le diste! Tu turno continua!', 'Ataque Exitoso');
         }
       })
 
@@ -86,18 +93,17 @@ export class BoardComponent {
           this.enemyBoard[data.data[2][0]][data.data[2][1]] = 'm';
           this.playerTurn = data.data[2];
           this.shooting = false;
-          this.toastr.error('La fallaste kpo!', 'Failed Attack');
+          this.toastr.error('La fallaste!', 'Ataque Fallido');
         }
       })
 
       this.echoService.alertWinner((data) => {
-        console.log(data);
         if(data.data == this.authService.getUserId()){
-          this.toastr.success('Ganaste :D', 'Fin del juego');
           this.gameFinished = true;
+          this.toastr.success('Ganaste :D', 'Fin del juego');
           setTimeout(() => {
             window.location.reload();
-          }, 3000)
+          }, 2000)
         }
       })
 
@@ -125,10 +131,10 @@ export class BoardComponent {
   }
 
   attackEnemy(i: number, j: number){
+    console.log('attacking');
     this.shooting = true;
     let cell= [i, j];
     this.echoService.attackEndpoint(this.gameId, this.enemyId, this.myId, cell).subscribe(data => {
-      this.shooting = false;
     })
   }
 
@@ -136,8 +142,8 @@ export class BoardComponent {
     let userConfirm = confirm('¿Estás seguro que deseas abandonar el juego? Perderás la partida :(');
     if(userConfirm){
       this.echoService.endGameEndpoint(this.gameId, this.myId).subscribe(data => {
-        this.toastr.show('Juego abandonado :(', 'Abortado');
         this.gameFinished = true;
+        this.toastr.show('Juego abandonado :(', 'Abortado');
         setTimeout(() => {
           window.location.reload();
         }, 2000)
