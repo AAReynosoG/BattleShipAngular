@@ -111,8 +111,9 @@
   align-items: center;
   text-transform: lowercase;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1rem;
   letter-spacing: 0.2px;
+  margin-top: 2rem;
 }
 
 #wifi-loader .text::before, #wifi-loader .text::after {
