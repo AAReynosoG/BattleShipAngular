@@ -1,0 +1,34 @@
+<div class="looser" *ngIf="loserscreen">
+  <h1 class="text-white" >¡Perdiste :(!</h1>
+  <div class="stadisticplayer">
+    <div class="player1stac">
+      <h3 class="text-white" >Tus barcos: </h3>
+      <h1 class="text-white" >{{ ships }}</h1>
+
+    </div>
+    <div class="player2stac">
+      <h3 class="text-white" >Barcos rivales: </h3>
+      <h1 class="text-white" >{{ enemyShips }}</h1>
+
+    </div>
+  </div>
+  <button class="btnssz" (click)="goToMenu()">Regresar al menú</button>
+
+</div>
+
+<div class="winner"  *ngIf="winnerscreen">
+  <h1 class="text-white">¡Ganaste :D!</h1>
+  <div class="stadisticplayer">
+    <div class="player1stac">
+      <h3 class="text-white" >Tus barcos: </h3>
+      <h1 class="text-white" >{{ ships }}</h1>
+
+    </div>
+    <div class="player2stac">
+      <h3 class="text-white" >Barcos rivales: </h3>
+      <h1 class="text-white" >{{ enemyShips }}</h1>
+
+    </div>
+  </div>
+  <button class="btnssz" (click)="goToMenu()">Regresar al menú</button>
+</div>

@@ -20,7 +20,7 @@ export const environment = {
   attackFailedURL: `${baseURL}/game/attack/failed`,
 
   pusher: {
-    key: `6f9207431644381a1fb9`,
-    cluster: `us2`
+    key: `43fedbb14d45bf4e004e`,
+    cluster: `us3`
   }
 }

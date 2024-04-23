@@ -5,6 +5,7 @@ import {EchoService} from "@services/EchoService/echo.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {LoaderTypeOneComponent} from "@components/Loaders/loader-type-one/loader-type-one.component";
+import {LoserscreenComponent} from "../LoserScreen/loserscreen/loserscreen.component";
 
 @Component({
   selector: 'app-board',
@@ -13,7 +14,8 @@ import {LoaderTypeOneComponent} from "@components/Loaders/loader-type-one/loader
     NgForOf,
     NgClass,
     LoaderTypeOneComponent,
-    NgIf
+    NgIf,
+    LoserscreenComponent
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.css'
@@ -29,8 +31,11 @@ export class BoardComponent {
   echoService = inject(EchoService)
   toastr = inject(ToastrService)
   router = inject(Router)
+
   gameFinished = false;
   shooting = false;
+  looserScreen = false;
+  winnerScreen = false;
 
   board: string[][] = Array.from({length: 8}, () => Array(5).fill('w'));
   enemyBoard: string[][] = Array.from({length: 8}, () => Array(5).fill('w'));
@@ -39,7 +44,8 @@ export class BoardComponent {
   gameId = localStorage.getItem('gameId');
   myId = this.authService.getUserId();
   enemyId = this.defineEnemyId();
-  boats = 15;
+  boats = 3;
+  enemyBoats = this.boats;
 
 
 
@@ -60,10 +66,11 @@ export class BoardComponent {
             if(this.boats == 0) {
               this.gameFinished = true;
               this.echoService.endGameEndpoint(this.gameId, this.authService.getUserId()).subscribe(data => {});
+              this.looserScreen = true;
               this.toastr.show('Perdiste :(', 'Fin del juego');
-              setTimeout(() => {
+              /*setTimeout(() => {
                 window.location.reload();
-              }, 2000)
+              }, 2000)*/
             }
           } else {
             this.board[data.data[1][0]][data.data[1][1]] = 'm';
@@ -82,6 +89,7 @@ export class BoardComponent {
         if(data.data[3] == this.authService.getUserId() && data.data[0] == true){
           this.enemyBoard[data.data[2][0]][data.data[2][1]] = 'h';
           this.playerTurn = data.data[3];
+          this.enemyBoats--;
           //this.playerTurn = this.enemyId //En caso de que el profe quiera que el turno se pase al sig jugador aun así acertaces el tiro
           this.shooting = false;
           this.toastr.info('Le diste! Tu turno continua!', 'Ataque Exitoso');
@@ -100,10 +108,11 @@ export class BoardComponent {
       this.echoService.alertWinner((data) => {
         if(data.data == this.authService.getUserId()){
           this.gameFinished = true;
+          this.winnerScreen = true;
           this.toastr.success('Ganaste :D', 'Fin del juego');
-          setTimeout(() => {
+          /*setTimeout(() => {
             window.location.reload();
-          }, 2000)
+          }, 2000)*/
         }
       })
 
@@ -143,10 +152,11 @@ export class BoardComponent {
     if(userConfirm){
       this.echoService.endGameEndpoint(this.gameId, this.myId).subscribe(data => {
         this.gameFinished = true;
+        this.looserScreen = true;
         this.toastr.show('Juego abandonado :(', 'Abortado');
-        setTimeout(() => {
+        /*setTimeout(() => {
           window.location.reload();
-        }, 2000)
+        }, 2000)*/
       })
     }
   }

@@ -1,0 +1,87 @@
+.looser {
+  position: absolute;
+  z-index: 15;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 83, 83, 0.932);
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.winner {
+  position: absolute;
+  z-index: 16;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(156, 255, 156, 0.623);
+  flex-direction: column;
+  gap: 3vh;
+
+}
+
+.stadisticplayer {
+  width: 40vh;
+  height: 35vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2vh;
+}
+
+.player1stac {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-column: 1;
+  border-radius: 2vh;
+  background-color: rgba(0, 0, 78, 0.712);
+  gap: 3vh;
+  flex-direction: column;
+
+}
+
+.player2stac {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-column: 2;
+  border-radius: 2vh;
+  background-color: rgba(63, 0, 105, 0.753);
+  gap: 3vh;
+  flex-direction: column;
+}
+
+.btnssz {
+  cursor: pointer;
+  padding: 15px 40px 15px 40px;
+  border-radius: 10px;
+  border-style: double;
+  font-weight: 600;
+  background-image: linear-gradient(
+    rgb(54, 53, 53),
+    rgb(0, 0, 0),
+    rgb(54, 54, 54)
+  );
+  color: rgb(164, 164, 162);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-color: rgb(0, 0, 0);
+  transition: 400ms;
+}
+
+.btnssz:hover {
+  transition: 400ms;
+  border-style: double;
+  border-color: rgb(208, 207, 207);
+  color: rgb(219, 216, 216);
+  font-size: 16px;
+  text-shadow: 1px 10px 5px rgb(61, 61, 61);
+}
