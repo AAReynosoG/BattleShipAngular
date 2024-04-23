@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, HostListener, inject} from '@angular/core';
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {AuthService} from "@services/AuthService/auth.service";
 import {EchoService} from "@services/EchoService/echo.service";
@@ -44,7 +44,7 @@ export class BoardComponent {
   gameId = localStorage.getItem('gameId');
   myId = this.authService.getUserId();
   enemyId = this.defineEnemyId();
-  boats = 3;
+  boats = 15;
   enemyBoats = this.boats;
 
 
@@ -56,8 +56,8 @@ export class BoardComponent {
 
         if(data.data[2] == this.authService.getUserId()){
           if(this.board[data.data[1][0]][data.data[1][1]] == 's'){
-            this.playerTurn = data.data[3]
-            //this.playerTurn = data.data[2] //En caso de que el profe quiera que el turno se pase al sig jugador aun así acertaces el tiro
+            //this.playerTurn = data.data[3]
+            this.playerTurn = data.data[2] //En caso de que el profe quiera que el turno se pase al sig jugador aun así acertaces el tiro
             this.board[data.data[1][0]][data.data[1][1]] = 'h';
             this.toastr.warning('Ouch! Te han dado!', 'Ataque enemigo')
             this.boats--;
@@ -88,9 +88,9 @@ export class BoardComponent {
         console.log(this.enemyId);
         if(data.data[3] == this.authService.getUserId() && data.data[0] == true){
           this.enemyBoard[data.data[2][0]][data.data[2][1]] = 'h';
-          this.playerTurn = data.data[3];
+          //this.playerTurn = data.data[3];
           this.enemyBoats--;
-          //this.playerTurn = this.enemyId //En caso de que el profe quiera que el turno se pase al sig jugador aun así acertaces el tiro
+          this.playerTurn = this.enemyId //En caso de que el profe quiera que el turno se pase al sig jugador aun así acertaces el tiro
           this.shooting = false;
           this.toastr.info('Le diste! Tu turno continua!', 'Ataque Exitoso');
         }
@@ -118,6 +118,14 @@ export class BoardComponent {
 
 
     }, 2000)
+  }
+
+  ngOnDestroy(){
+    window.addEventListener('beforeunload', (event) => {
+      if (!this.gameFinished){
+        this.abortGame()
+      }
+    })
   }
 
    placeRandomShips(board: string[][], numShips: number) {
@@ -159,6 +167,13 @@ export class BoardComponent {
           window.location.reload();
         }, 2000)*/
       })
+    }
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHandler(event: Event) {
+    if (!this.gameFinished) {
+      this.abortGame();
     }
   }
 
