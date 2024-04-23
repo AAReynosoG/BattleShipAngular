@@ -133,6 +133,7 @@ export class BoardComponent {
   attackEnemy(i: number, j: number){
     console.log('attacking');
     this.shooting = true;
+    console.log(this.enemyBoard)
     let cell= [i, j];
     this.echoService.attackEndpoint(this.gameId, this.enemyId, this.myId, cell).subscribe(data => {
     })

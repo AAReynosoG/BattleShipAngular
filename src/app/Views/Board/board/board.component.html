@@ -12,8 +12,9 @@
                         <tr *ngFor="let row of enemyBoard; let i = index">
                             <td *ngFor="let cell of row; let j = index" class="p-0">
                                 <button
+                                    id="button"
                                     [disabled]="playerTurn != this.authService.getUserId() || gameFinished"
-                                    [ngClass]="{'bg-blue-500': cell == 'w', 'ship': cell == 's', 'bg-red-400': cell == 'h', 'bg-gray-500': cell == 'm'}"
+                                    [ngClass]="{'water': cell == 'w', 'ship': cell == 's', 'hited': cell == 'h', 'missed': cell == 'm'}"
                                     class="w-full h-full hover:bg-blue-700 text-white font-bold py-2 px-4 border border-gray-300 rounded"
                                     (click)="attackEnemy(i, j)">{{cell}}</button>
                             </td>
@@ -36,7 +37,8 @@
                     <table class="table-fixed border-collapse">
                         <tr *ngFor="let row of board; let i = index">
                             <td *ngFor="let cell of row; let j = index" class="p-0">
-                                    <button [disabled]="true"
+                                    <button 
+                                        [disabled]="true"
                                         [ngClass]="{'water': cell == 'w', 'ship': cell == 's', 'hited': cell == 'h', 'missed': cell == 'm'}"
                                         class="w-full h-full text-white font-bold py-2 px-4 border border-gray-300 rounded"></button>
                             </td>
